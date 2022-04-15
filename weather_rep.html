@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+
+
+city: <input type="text" id="myText">
+<button onclick="gets()">Try it</button><br>
+
+<br>
+<span id="name"></span><br>
+<span id="reg"></span><br>
+<span id="country"></span><br>
+<span id="sts"></span><br>
+<p><span id="laDet"></span></p>
+<script>
+
+    function gets(){
+
+        if(!!document.getElementById("country_img")){
+        const element = document.getElementById("country_img");
+        element.remove();}
+
+        
+    let city=document.getElementById("myText").value;
+const url='https://api.weatherapi.com/v1/current.json?key=a09f740c4418460a9ca100409221504&q='+city;
+
+
+
+async function getdata(){
+const response=await fetch(url);
+
+const data= await response.json();
+
+
+
+const img = document.createElement("img");
+img.id="country_img";
+img.src = 'https://countryflagsapi.com/png/'+data.location.country;
+document.body.appendChild(img);
+
+document.getElementById("laDet").textContent ="Temp :"+data.current.temp_c;
+document.getElementById("name").textContent ="Name  :"+data.location.name;
+document.getElementById("reg").textContent ="Region :"+data.location.region;
+document.getElementById("country").textContent ="Country:"+data.location.country;
+document.getElementById("sts").textContent ="status:"+data.current.condition.text;
+
+}
+getdata();
+    }
+
+</script>
+
+</body>
+</html>
